@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+#include<math.h>
+void bresenham(int xa,int ya,int xb,int yb)
+{
+	int dx,dy,twody,twodydx,p,x,y,xend,yend,twodx,twodxdy;
+	float m;
+	dx=abs(xb-xa);
+	dy=abs(yb-ya);
+	if(dx>dy)
+	{
+		printf("\n gentle");
+		if(dx==0)
+			m=(float)dy;
+		else
+			m=(yb-ya)/(xb-xa);
+		p=2*dy-dx;
+		twody=2*dy;
+		twodydx=2*(dy-dx);
+		if(xa>xb)
+		{
+			x=xb;
+			y=yb;
+			xend=xa;
+		}
+		else
+		{
+			x=xa;
+			y=ya;
+			xend=xb;
+		}
+		putpixel(x,y,1);
+	while(x<xend)
+	{
+		x=x+1;
+		if(p<0)
+		{
+			p=p+twody;
+		}
+		else
+		{
+			if(0<m<1)
+			{
+				y=y+1;
+			}
+			else
+			{
+				y--;
+			}
+			p=p+twodydx;
+		}
+		putpixel(x,y,1);
+	}
+}
+	else
+	{
+		if(dx==0)
+			m=(float)dy;
+		else
+			m=(yb-ya)/(xb-xa);
+		printf("\n steep");
+		p=2*dx-dy;
+		twodx=2*dx;
+		twodxdy=2*(dx-dy);
+		if(ya>yb)
+		{
+			x=xb;
+			y=yb;
+			yend=ya;
+		}
+		else
+		{
+			x=xa;
+			y=ya;
+			yend=yb;
+		}
+		putpixel(x,y,1);
+		while(y<yend)
+		{
+			y=y+1;
+			if(p<0)
+			{
+				p=p+twodx;
+			}
+			else
+			{
+				if(m>=1)
+				{
+					x=x+1;
+				}
+				else
+				{
+					x=x-1;
+				}
+				p=p+twodxdy;
+			}
+		putpixel(x,y,1);
+	}
+}
+}
+void main()
+{
+	int gd=DETECT,gm;
+	initgraph(&gd,&gm,"c:/TurboC3/BGI");
+	bresenham(200,100,100,200);
+	bresenham(200,100,300,200);
+	bresenham(100,200,300,200);
+	bresenham(100,200,100,400);
+	bresenham(300,200,300,400);
+	bresenham(100,400,300,400);
+	bresenham(180,320,220,320);
+	bresenham(180,320,180,400);
+	bresenham(220,320,220,400);
+	getch();
+}
